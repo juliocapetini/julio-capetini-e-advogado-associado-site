@@ -9,14 +9,26 @@ export function HeroSection() {
       className="relative min-h-[80svh] overflow-hidden bg-[var(--color-hero-bg)] text-[var(--color-hero-fg)]"
     >
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/fundohome.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
+        <div className="absolute inset-0 md:hidden">
+          <Image
+            src="/images/fundohomemobile.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </div>
+        <div className="absolute inset-0 hidden md:block">
+          <Image
+            src="/images/fundohome.jpg"
+            alt=""
+            fill
+            priority
+            sizes="(min-width: 768px) 100vw, 0px"
+            className="object-cover object-center"
+          />
+        </div>
       </div>
       <div
         className="absolute inset-0 z-[1] bg-gradient-to-b from-[var(--color-hero-bg)]/75 via-[var(--color-hero-bg)]/55 to-[var(--color-hero-bg)]/85"

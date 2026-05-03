@@ -1,12 +1,9 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { eq } from "drizzle-orm";
-import { ensureValidAuthUrlEnv } from "@/lib/auth-url-env";
 import { getDb } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { verifyPassword } from "@/lib/password";
-
-ensureValidAuthUrlEnv();
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   trustHost: true,
