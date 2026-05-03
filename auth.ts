@@ -27,14 +27,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const rows = await db.select().from(users).where(eq(users.email, email)).limit(1);
         const user = rows[0];
         if (!user || user.role !== "admin") return null;
-        const authResult = await verifyPassword(String(password), user.passwordHash);
-        if (!authResult.ok) return null;
-        if (authResult.upgradedHash) {
-          await db
-            .update(users)
-            .set({ passwordHash: authResult.upgradedHash })
-            .where(eq(users.id, user.id));
-        }
+        const ok = await verifyPassword(String(password), user.passwordHash);
+        if (!ok) return null;
         return {
           id: user.id,
           email: user.email,
