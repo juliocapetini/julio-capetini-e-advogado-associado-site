@@ -1,6 +1,6 @@
-import { hash } from "bcryptjs";
 import { eq } from "drizzle-orm";
 import { getDb } from "../lib/db";
+import { hashPassword } from "../lib/password";
 import { users } from "../lib/db/schema";
 
 async function main() {
@@ -26,7 +26,7 @@ async function main() {
     process.exit(0);
   }
 
-  const passwordHash = await hash(password, 12);
+  const passwordHash = await hashPassword(password);
   await db.insert(users).values({ email, passwordHash, name, role: "admin" });
   console.log("Administrador criado:", email);
 }

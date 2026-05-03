@@ -1,9 +1,9 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { compare } from "bcryptjs";
 import { eq } from "drizzle-orm";
 import { getDb } from "@/lib/db";
 import { users } from "@/lib/db/schema";
+import { verifyPassword } from "@/lib/password";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   trustHost: true,
@@ -27,8 +27,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const rows = await db.select().from(users).where(eq(users.email, email)).limit(1);
         const user = rows[0];
         if (!user || user.role !== "admin") return null;
-        const ok = await compare(String(password), user.passwordHash);
-        if (!ok) return null;
+        const authResult = await verifyPassword(String(password), user.passwordHash);
+        if (!authResult.ok) return null;
+        if (authResult.upgradedHash) {
+          await db
+            .update(users)
+            .set({ passwordHash: authResult.upgradedHash })
+            .where(eq(users.id, user.id));
+        }
         return {
           id: user.id,
           email: user.email,

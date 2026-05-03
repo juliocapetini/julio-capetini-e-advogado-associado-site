@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@uiw/react-md-editor": "^4.1.0",
+    "argon2": "^0.44.0",
     "bcryptjs": "^3.0.3",
     "drizzle-orm": "^0.45.2",
     "next": "16.2.2",
