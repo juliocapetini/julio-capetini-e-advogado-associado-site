@@ -50,7 +50,7 @@ export const teamMembers = [
       "Pós-graduação em direito penal e processual penal.",
       "Atuou como Assessor de Juiz de Direito do TJES por 14 anos.",
     ],
-    image: "/images/roberto.webp",
+    image: "/images/julio.jpg",
   },
 ] as const;
 
