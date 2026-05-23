@@ -19,14 +19,29 @@ async function main() {
     process.exit(1);
   }
 
+  const force = /^(1|true|yes)$/i.test(process.env.ADMIN_SEED_FORCE ?? "");
+
   const db = getDb();
   const existing = await db.select().from(users).where(eq(users.email, email)).limit(1);
+  const passwordHash = await hashPassword(password);
+
   if (existing.length > 0) {
-    console.log("Utilizador já existe:", email);
-    process.exit(0);
+    if (!force) {
+      console.log(
+        "Utilizador já existe:",
+        email,
+        "\nDefine ADMIN_SEED_FORCE=true para repor a senha/nome/role.",
+      );
+      process.exit(0);
+    }
+    await db
+      .update(users)
+      .set({ passwordHash, name, role: "admin" })
+      .where(eq(users.email, email));
+    console.log("Administrador atualizado:", email);
+    return;
   }
 
-  const passwordHash = await hashPassword(password);
   await db.insert(users).values({ email, passwordHash, name, role: "admin" });
   console.log("Administrador criado:", email);
 }

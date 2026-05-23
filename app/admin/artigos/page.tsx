@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArtigoDeleteButton } from "@/components/admin/artigo-delete-button";
 import { listAllArticlesForAdmin } from "@/lib/queries/articles";
 
 export const dynamic = "force-dynamic";
@@ -37,12 +38,15 @@ export default async function AdminArtigosListPage() {
                   )}
                 </p>
               </div>
-              <Link
-                href={`/admin/artigos/${a.id}/editar`}
-                className="shrink-0 rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm font-medium text-[var(--color-ink)] transition hover:bg-[var(--color-muted)]"
-              >
-                Editar
-              </Link>
+              <div className="flex shrink-0 flex-wrap items-center gap-2">
+                <Link
+                  href={`/admin/artigos/${a.id}/editar`}
+                  className="rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm font-medium text-[var(--color-ink)] transition hover:bg-[var(--color-muted)]"
+                >
+                  Editar
+                </Link>
+                <ArtigoDeleteButton id={a.id} title={a.title} />
+              </div>
             </li>
           ))}
         </ul>

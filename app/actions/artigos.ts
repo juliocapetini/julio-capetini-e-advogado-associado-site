@@ -142,3 +142,34 @@ export async function updateArtigo(_prev: ArtigoFormState, formData: FormData): 
   revalidatePath(`/artigos/${row.slug}`);
   redirect("/admin/artigos");
 }
+
+export async function deleteArtigo(_prev: ArtigoFormState, formData: FormData): Promise<ArtigoFormState> {
+  try {
+    await requireAdmin();
+  } catch {
+    return { ok: false, message: "Sessão inválida. Inicie sessão novamente." };
+  }
+
+  const id = String(formData.get("id") ?? "").trim();
+  if (!id) {
+    return { ok: false, message: "Identificador em falta." };
+  }
+
+  const db = getDb();
+  const existing = await db.select().from(articles).where(eq(articles.id, id)).limit(1);
+  const row = existing[0];
+  if (!row) {
+    return { ok: false, message: "Artigo não encontrado." };
+  }
+
+  try {
+    await db.delete(articles).where(eq(articles.id, id));
+  } catch {
+    return { ok: false, message: "Não foi possível remover o artigo." };
+  }
+
+  revalidatePath("/artigos");
+  revalidatePath(`/artigos/${row.slug}`);
+  revalidatePath("/admin/artigos");
+  redirect("/admin/artigos");
+}

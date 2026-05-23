@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { AdminChrome } from "@/components/admin/admin-chrome";
 
-export default async function AdminArtigosLayout({
+export default async function AdminAdminsLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -13,7 +13,7 @@ export default async function AdminArtigosLayout({
   }
 
   return (
-    <AdminChrome userEmail={session.user.email} currentSection="artigos">
+    <AdminChrome userEmail={session.user.email} currentSection="admins">
       {children}
     </AdminChrome>
   );
