@@ -22,7 +22,7 @@ const channels: Channel[] = [
   {
     href: `https://wa.me/${site.whatsappE164}`,
     label: "WhatsApp",
-    value: site.phoneDisplay,
+    value: site.phoneDisplay2,
     Icon: IconWhatsApp,
     external: true,
     accent: true,

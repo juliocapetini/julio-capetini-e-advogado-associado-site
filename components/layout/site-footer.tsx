@@ -47,7 +47,7 @@ export function SiteFooter() {
                   className="inline-flex items-center gap-2.5 transition hover:text-white"
                 >
                   <IconWhatsApp className="h-4 w-4 text-[var(--color-accent-soft)]" />
-                  WhatsApp · {site.phoneDisplay}
+                  WhatsApp · {site.phoneDisplay2}
                 </a>
               </li>
               <li>
