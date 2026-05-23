@@ -15,10 +15,12 @@ export const site = {
     "Buscamos sempre os melhores resultados com estratégias adequadas ao seu caso.",
     "Atendimento on-line para todo Brasil.",
   ],
-  phoneDisplay: "(21) 99999-9999",
-  phoneTel: "+5521999999999",
-  whatsappE164: "5521999999999",
-  email: "contato@pauloadv.com.br",
+  phoneDisplay: "(21) 99554-1352",
+  phoneDisplay2: "(28) 99956-7833",
+  phoneTel: "+5521995541352",
+  phoneTel2: "+5528999567833",
+  whatsappE164: "5528999567833",
+  email: "adv.juliocapetini@gmail.com",
   /** Texto para rodapé e contacto (sem endereço fixo de sede). */
   serviceAreaLine: "Atendimento online em todo o Brasil. Reuniões presenciais mediante agendamento.",
 } as const;

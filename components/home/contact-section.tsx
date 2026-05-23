@@ -34,6 +34,12 @@ const channels: Channel[] = [
     Icon: IconPhone,
   },
   {
+    href: `tel:${site.phoneTel2}`,
+    label: "Telefone",
+    value: site.phoneDisplay2,
+    Icon: IconPhone,
+  },
+  {
     href: `mailto:${site.email}`,
     label: "E-mail",
     value: site.email,

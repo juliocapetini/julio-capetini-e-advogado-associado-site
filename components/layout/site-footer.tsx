@@ -61,6 +61,15 @@ export function SiteFooter() {
               </li>
               <li>
                 <a
+                  href={`tel:${site.phoneTel2}`}
+                  className="inline-flex items-center gap-2.5 transition hover:text-white"
+                >
+                  <IconPhone className="h-4 w-4 text-[var(--color-accent-soft)]" />
+                  {site.phoneDisplay2}
+                </a>
+              </li>
+              <li>
+                <a
                   href={`mailto:${site.email}`}
                   className="inline-flex items-center gap-2.5 transition hover:text-white"
                 >
