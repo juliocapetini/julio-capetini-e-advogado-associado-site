@@ -12,14 +12,14 @@ export function SiteLogo() {
 
   if (broken) {
     return (
-      <span className="font-serif text-2xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-3xl">
+      <span className="font-serif text-xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-2xl">
         {site.shortName}
       </span>
     );
   }
 
   return (
-    <span className="inline-flex min-h-[3.25rem] items-center sm:min-h-[4rem] md:min-h-[4.75rem] lg:min-h-[5.25rem]">
+    <span className="inline-flex items-center">
       {/* eslint-disable-next-line @next/next/no-img-element -- PNG local; next/image falhava e activava fallback */}
       <img
         key={site.logoSrc}
@@ -27,7 +27,7 @@ export function SiteLogo() {
         alt=""
         width={480}
         height={120}
-        className="h-[3.25rem] w-auto max-w-[min(92vw,420px)] object-contain object-left sm:h-16 sm:max-w-[min(90vw,480px)] md:h-[4.75rem] md:max-w-[min(85vw,520px)] lg:h-[5.25rem] lg:max-w-[560px]"
+        className="h-10 w-auto max-w-[min(70vw,260px)] object-contain object-left sm:h-12 sm:max-w-[320px] md:h-14 md:max-w-[380px] lg:h-16 lg:max-w-[440px]"
         fetchPriority="high"
         decoding="async"
         onError={() => setBroken(true)}

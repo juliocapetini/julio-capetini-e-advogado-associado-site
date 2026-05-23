@@ -6,13 +6,19 @@
   --color-card: #ffffff;
   --color-muted: #ede8df;
   --color-border: #e2dcd0;
-  --color-ink: #1a1f2e;
-  --color-ink-muted: #5c6270;
-  --color-accent: #b8860b;
+  --color-border-strong: #cfc8b8;
+  --color-ink: #14192a;
+  --color-ink-muted: #4d5366;
+  --color-ink-subtle: #6e7488;
+  --color-accent: #a87519;
+  --color-accent-soft: #d9a73d;
   --color-accent-foreground: #1a1204;
-  --color-hero-bg: #121826;
+  --color-hero-bg: #0f1422;
   --color-hero-fg: #f8f6f1;
-  --color-hero-muted: rgba(248, 246, 241, 0.72);
+  --color-hero-muted: rgba(248, 246, 241, 0.78);
+  --color-hero-border: rgba(255, 255, 255, 0.14);
+  --shadow-soft: 0 1px 2px rgba(20, 25, 42, 0.04), 0 6px 24px -12px rgba(20, 25, 42, 0.12);
+  --shadow-card: 0 1px 2px rgba(20, 25, 42, 0.05), 0 12px 32px -18px rgba(20, 25, 42, 0.18);
 }
 
 @theme inline {
@@ -22,10 +28,79 @@
 
 body {
   font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 .font-serif {
   font-family: var(--font-display), ui-serif, Georgia, serif;
+}
+
+/* Utilitários tipográficos modernos */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* Enfeite: filete dourado decorativo (usado como separador em cabeçalhos de secção) */
+.gold-rule {
+  display: inline-block;
+  width: 2.25rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-soft));
+  border-radius: 9999px;
+  vertical-align: middle;
+}
+
+/* Animação de entrada subtil para secções (apenas se o utilizador não preferir reduzir movimento) */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  animation: fade-up 0.6s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Pulse discreto do botão flutuante */
+@keyframes soft-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  80%,
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+.soft-ping {
+  animation: soft-ping 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .soft-ping {
+    animation: none;
+  }
 }
 
 .sr-only {
@@ -51,6 +126,13 @@ body {
   white-space: normal;
 }
 
+/* Anel de foco consistente em toda a interface (acessibilidade) */
+:where(a, button, [role="button"], input, select, textarea):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
 /* Conteúdo Markdown dos artigos */
 .article-md h1 {
   font-family: var(--font-display), ui-serif, Georgia, serif;
@@ -59,6 +141,7 @@ body {
   margin-top: 2rem;
   margin-bottom: 0.75rem;
   line-height: 1.25;
+  text-wrap: balance;
 }
 
 .article-md h2 {
@@ -67,6 +150,7 @@ body {
   font-weight: 600;
   margin-top: 1.75rem;
   margin-bottom: 0.5rem;
+  text-wrap: balance;
 }
 
 .article-md h3 {
@@ -77,29 +161,26 @@ body {
 }
 
 .article-md p {
-  line-height: 1.7;
-  text-align: justify;
+  line-height: 1.75;
+  text-wrap: pretty;
 }
 
 .article-md ul,
 .article-md ol {
   margin: 0.75rem 0;
   padding-left: 1.5rem;
-  line-height: 1.65;
-}
-
-.article-md li {
-  text-align: justify;
+  line-height: 1.7;
 }
 
 .article-md a {
   color: var(--color-accent);
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
 }
 
 .article-md a:hover {
-  filter: brightness(0.95);
+  filter: brightness(0.9);
 }
 
 .article-md blockquote {
@@ -107,7 +188,7 @@ body {
   padding-left: 1rem;
   border-left: 3px solid var(--color-accent);
   color: var(--color-ink-muted);
-  text-align: justify;
+  font-style: italic;
 }
 
 .article-md code {
