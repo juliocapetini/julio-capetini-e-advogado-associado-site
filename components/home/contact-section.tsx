@@ -98,22 +98,6 @@ export function ContactSection() {
               ))}
             </ul>
 
-            <div className="mt-5 rounded-2xl border border-dashed border-[var(--color-border-strong)] bg-[var(--color-surface)]/60 p-4">
-              <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-subtle)]">
-                <IconClock className="h-4 w-4" />
-                Horário
-              </p>
-              <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-ink-muted)]">
-                Segunda a sexta, das 9h às 18h.
-              </p>
-              <p className="mt-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-subtle)]">
-                <IconMonitor className="h-4 w-4" />
-                Modalidade
-              </p>
-              <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-ink-muted)] text-pretty">
-                {site.serviceAreaLine}
-              </p>
-            </div>
           </aside>
 
           <div className="lg:col-span-3">

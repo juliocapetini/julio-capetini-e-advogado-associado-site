@@ -105,14 +105,6 @@ export function SiteFooter() {
           aria-hidden
         />
 
-        {/* Aviso ético OAB */}
-        <p className="mt-8 text-[11px] leading-relaxed text-white/45 text-pretty">
-          As informações contidas neste site obedecem ao Código de Ética e Disciplina e ao
-          Provimento nº 205/2021 do Conselho Federal da OAB. Este site tem caráter exclusivamente
-          informativo, não constitui captação de clientela e não substitui orientação jurídica
-          individualizada.
-        </p>
-
         <div className="mt-6 flex flex-col items-start justify-between gap-3 text-xs text-white/50 sm:flex-row sm:items-center">
           <p>
             © {year} {site.name}. Todos os direitos reservados.
