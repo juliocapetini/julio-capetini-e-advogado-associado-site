@@ -1,4 +1,4 @@
-import DOMPurify from "isomorphic-dompurify";
+import sanitizeHtml from "sanitize-html";
 
 const ALLOWED_TAGS = [
   "h1",
@@ -46,21 +46,13 @@ const ALLOWED_TAGS = [
   "button",
 ];
 
-const ALLOWED_ATTR = [
-  "href",
-  "title",
-  "target",
-  "rel",
-  "colspan",
-  "rowspan",
-  "scope",
-  "class",
-  "style",
-  "aria-hidden",
-  "aria-label",
-  "role",
-  "type",
-];
+const ALLOWED_ATTRIBUTES: sanitizeHtml.IOptions["allowedAttributes"] = {
+  a: ["href", "title", "target", "rel", "class"],
+  button: ["type", "class", "aria-label"],
+  th: ["colspan", "rowspan", "scope", "class"],
+  td: ["colspan", "rowspan", "class"],
+  "*": ["class", "style", "aria-hidden", "aria-label", "role"],
+};
 
 /** Blocos <style> são ignorados — estilos de newsletter ficam em app/article-newsletter.css */
 function stripStyleBlocks(html: string): string {
@@ -78,15 +70,24 @@ function normalizeNewsletterCta(html: string): string {
   );
 }
 
-/** Remove scripts/event handlers; mantém classes e estilos inline seguros. */
+/** Remove scripts/event handlers; mantém classes e estilos inline seguros. Sem jsdom (compatível Vercel). */
 export function sanitizeArticleHtml(dirty: string): string {
   const trimmed = stripStyleBlocks(dirty).trim();
   if (!trimmed) return "";
 
-  const clean = DOMPurify.sanitize(trimmed, {
-    ALLOWED_TAGS,
-    ALLOWED_ATTR,
-    ALLOW_DATA_ATTR: false,
+  const clean = sanitizeHtml(trimmed, {
+    allowedTags: ALLOWED_TAGS,
+    allowedAttributes: ALLOWED_ATTRIBUTES,
+    allowedSchemes: ["http", "https", "mailto", "tel"],
+    allowProtocolRelative: false,
+    allowedStyles: {
+      "*": {
+        height: [/^\d+(?:px|rem|em|%)$/],
+        width: [/^\d+(?:px|rem|em|%)$/],
+        "margin-top": [/^\d+(?:px|rem|em|%)$/],
+        "margin-bottom": [/^\d+(?:px|rem|em|%)$/],
+      },
+    },
   });
 
   return normalizeNewsletterCta(clean);
