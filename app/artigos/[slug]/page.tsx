@@ -81,7 +81,7 @@ export default async function ArtigoPage({ params }: Props) {
           ) : null}
         </header>
         <div className="pt-10">
-          <ArticleBody markdown={article.body} />
+          <ArticleBody html={article.body} />
         </div>
       </article>
     </div>

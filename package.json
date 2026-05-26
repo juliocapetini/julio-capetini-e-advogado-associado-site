@@ -12,17 +12,19 @@
     "db:seed": "tsx --env-file=.env.local scripts/seed-admin.ts"
   },
   "dependencies": {
-    "@uiw/react-md-editor": "^4.1.0",
+    "@tabler/icons-webfont": "^3.44.0",
+    "@tiptap/extension-link": "^3.23.6",
+    "@tiptap/extension-placeholder": "^3.23.6",
+    "@tiptap/react": "^3.23.6",
+    "@tiptap/starter-kit": "^3.23.6",
     "argon2": "^0.44.0",
     "drizzle-orm": "^0.45.2",
+    "isomorphic-dompurify": "^2.25.0",
     "next": "16.2.2",
     "next-auth": "^5.0.0-beta.30",
     "postgres": "^3.4.9",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "react-markdown": "^10.1.0",
-    "rehype-sanitize": "^6.0.0",
-    "remark-gfm": "^4.0.1",
     "resend": "^6.10.0"
   },
   "devDependencies": {

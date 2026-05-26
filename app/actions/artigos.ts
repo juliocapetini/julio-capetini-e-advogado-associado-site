@@ -3,6 +3,7 @@
 import { auth } from "@/auth";
 import { getDb, articles } from "@/lib/db";
 import { slugify } from "@/lib/slug";
+import { sanitizeArticleHtml } from "@/lib/sanitize-article-html";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -31,7 +32,8 @@ export async function createArtigo(_prev: ArtigoFormState, formData: FormData): 
   const title = String(formData.get("title") ?? "").trim();
   let slug = String(formData.get("slug") ?? "").trim().toLowerCase();
   const excerpt = String(formData.get("excerpt") ?? "").trim() || null;
-  const body = String(formData.get("body") ?? "").trim();
+  const rawBody = String(formData.get("body") ?? "").trim();
+  const body = sanitizeArticleHtml(rawBody);
   const publish = formData.get("publish") === "on";
 
   if (!title || title.length > LIMITS.title) {
@@ -90,7 +92,8 @@ export async function updateArtigo(_prev: ArtigoFormState, formData: FormData): 
   const title = String(formData.get("title") ?? "").trim();
   let slug = String(formData.get("slug") ?? "").trim().toLowerCase();
   const excerpt = String(formData.get("excerpt") ?? "").trim() || null;
-  const body = String(formData.get("body") ?? "").trim();
+  const rawBody = String(formData.get("body") ?? "").trim();
+  const body = sanitizeArticleHtml(rawBody);
   const publish = formData.get("publish") === "on";
 
   if (!title || title.length > LIMITS.title) {

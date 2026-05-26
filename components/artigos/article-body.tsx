@@ -1,15 +1,15 @@
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeSanitize from "rehype-sanitize";
+import { sanitizeArticleHtml } from "@/lib/sanitize-article-html";
 
-type Props = { markdown: string };
+type Props = { html: string };
 
-export function ArticleBody({ markdown }: Props) {
+export function ArticleBody({ html }: Props) {
+  const safe = sanitizeArticleHtml(html);
+  if (!safe) return null;
+
   return (
-    <div className="article-md space-y-4 text-[var(--color-ink)]">
-      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSanitize]}>
-        {markdown}
-      </ReactMarkdown>
-    </div>
+    <div
+      className="article-md text-[var(--color-ink)]"
+      dangerouslySetInnerHTML={{ __html: safe }}
+    />
   );
 }

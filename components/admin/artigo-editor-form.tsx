@@ -79,9 +79,7 @@ export function ArtigoEditorForm(props: Props) {
           className="mt-1.5 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-[var(--color-ink)] outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20"
         />
       </div>
-      <ArtigoBodyField
-        initialMarkdown={props.mode === "edit" ? props.initial.body : ""}
-      />
+      <ArtigoBodyField initialHtml={props.mode === "edit" ? props.initial.body : ""} />
       <div className="flex items-center gap-2">
         <input
           id="publish"

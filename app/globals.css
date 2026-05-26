@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "./article-newsletter.css";
+@import "@tabler/icons-webfont/dist/tabler-icons.min.css";
 
 :root {
   --color-canvas: #f6f4ef;
@@ -133,8 +135,8 @@ body {
   border-radius: 0.5rem;
 }
 
-/* Conteúdo Markdown dos artigos */
-.article-md h1 {
+/* Conteúdo HTML dos artigos — só elementos sem classe (não sobrescreve newsletter .nw-*) */
+.article-md h1:not([class]) {
   font-family: var(--font-display), ui-serif, Georgia, serif;
   font-size: 1.75rem;
   font-weight: 600;
@@ -144,7 +146,7 @@ body {
   text-wrap: balance;
 }
 
-.article-md h2 {
+.article-md h2:not([class]) {
   font-family: var(--font-display), ui-serif, Georgia, serif;
   font-size: 1.375rem;
   font-weight: 600;
@@ -153,20 +155,20 @@ body {
   text-wrap: balance;
 }
 
-.article-md h3 {
+.article-md h3:not([class]) {
   font-size: 1.125rem;
   font-weight: 600;
   margin-top: 1.25rem;
   margin-bottom: 0.5rem;
 }
 
-.article-md p {
+.article-md p:not([class]) {
   line-height: 1.75;
   text-wrap: pretty;
 }
 
-.article-md ul,
-.article-md ol {
+.article-md ul:not([class]),
+.article-md ol:not([class]) {
   margin: 0.75rem 0;
   padding-left: 1.5rem;
   line-height: 1.7;
@@ -211,4 +213,41 @@ body {
 .article-md pre code {
   background: transparent;
   padding: 0;
+}
+
+.article-md table {
+  width: 100%;
+  margin: 1rem 0;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.article-md th,
+.article-md td {
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.article-md th {
+  font-weight: 600;
+  background: var(--color-muted);
+}
+
+/* Editor visual (TipTap) — mesma tipografia que o artigo publicado */
+.artigo-tiptap.ProseMirror {
+  outline: none;
+}
+
+.artigo-tiptap.ProseMirror p.is-editor-empty:first-child::before {
+  color: var(--color-ink-muted);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.artigo-rich-editor .ProseMirror-focused {
+  outline: none;
 }
