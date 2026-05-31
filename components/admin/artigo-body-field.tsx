@@ -100,9 +100,9 @@ export function ArtigoBodyField({ initialHtml }: Props) {
       </span>
       <p className="text-xs text-[var(--color-ink-muted)]">
         Escolha um modo: <strong className="font-medium">Colar HTML</strong> para artigos gerados por
-        assistente (newsletter, classes <code className="rounded bg-[var(--color-muted)] px-1">nw-*</code>
-        ). <strong className="font-medium">Editor visual</strong> para texto simples com barra de
-        formatação. Os modos não se misturam — mudar para o editor com HTML rico pede confirmação.
+        assistente (pode colar o ficheiro inteiro com <code className="rounded bg-[var(--color-muted)] px-1">&lt;!DOCTYPE&gt;</code>
+        — o site extrai o corpo e aplica os estilos). <strong className="font-medium">Editor visual</strong>{" "}
+        para texto simples. Os modos não se misturam.
       </p>
       <input type="hidden" name="body" value={body} />
       <div

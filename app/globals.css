@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./article-newsletter.css";
+@import "./article-newsletter-parchment.css";
 @import "@tabler/icons-webfont/dist/tabler-icons.min.css";
 
 :root {
@@ -174,18 +175,18 @@ body {
   line-height: 1.7;
 }
 
-.article-md a {
+.article-md a:not([class]) {
   color: var(--color-accent);
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
 }
 
-.article-md a:hover {
+.article-md a:not([class]):hover {
   filter: brightness(0.9);
 }
 
-.article-md blockquote {
+.article-md:not(:has(.page-wrap)):not(:has(.nw)) blockquote {
   margin: 1rem 0;
   padding-left: 1rem;
   border-left: 3px solid var(--color-accent);

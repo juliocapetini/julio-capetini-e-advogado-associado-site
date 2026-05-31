@@ -5,8 +5,11 @@ export function isRichArticleHtml(html: string): boolean {
 
   return (
     /\bclass="[^"]*\bnw[\s"-]/.test(trimmed) ||
+    /\bclass="[^"]*page-wrap/.test(trimmed) ||
+    /\bclass="[^"]*masthead/.test(trimmed) ||
     /\bclass="[^"]*pill/.test(trimmed) ||
     /\bclass="[^"]*focus-/.test(trimmed) ||
+    (/<(?:header|section|article|footer)[\s>]/i.test(trimmed) && /\bclass="/i.test(trimmed)) ||
     (/<div[\s>]/i.test(trimmed) && /\bclass="/i.test(trimmed))
   );
 }

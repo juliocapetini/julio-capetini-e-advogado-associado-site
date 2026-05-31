@@ -44,6 +44,10 @@ const ALLOWED_TAGS = [
   "div",
   "span",
   "button",
+  "header",
+  "section",
+  "article",
+  "footer",
 ];
 
 const ALLOWED_ATTRIBUTES: sanitizeHtml.IOptions["allowedAttributes"] = {
@@ -54,7 +58,20 @@ const ALLOWED_ATTRIBUTES: sanitizeHtml.IOptions["allowedAttributes"] = {
   "*": ["class", "style", "aria-hidden", "aria-label", "role"],
 };
 
-/** Blocos <style> são ignorados — estilos de newsletter ficam em app/article-newsletter.css */
+/** Extrai só o markup colável quando o utilizador cola um documento HTML completo. */
+function extractPasteableHtml(html: string): string {
+  const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+  if (bodyMatch) return bodyMatch[1].trim();
+
+  return html
+    .replace(/<!DOCTYPE[^>]*>/gi, "")
+    .replace(/<head[^>]*>[\s\S]*?<\/head>/gi, "")
+    .replace(/<\/?html[^>]*>/gi, "")
+    .replace(/<\/?body[^>]*>/gi, "")
+    .trim();
+}
+
+/** Blocos <style> são ignorados — estilos ficam em app/article-newsletter*.css */
 function stripStyleBlocks(html: string): string {
   return html.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "");
 }
@@ -72,7 +89,7 @@ function normalizeNewsletterCta(html: string): string {
 
 /** Remove scripts/event handlers; mantém classes e estilos inline seguros. Sem jsdom (compatível Vercel). */
 export function sanitizeArticleHtml(dirty: string): string {
-  const trimmed = stripStyleBlocks(dirty).trim();
+  const trimmed = stripStyleBlocks(extractPasteableHtml(dirty)).trim();
   if (!trimmed) return "";
 
   const clean = sanitizeHtml(trimmed, {
@@ -86,6 +103,7 @@ export function sanitizeArticleHtml(dirty: string): string {
         width: [/^\d+(?:px|rem|em|%)$/],
         "margin-top": [/^\d+(?:px|rem|em|%)$/],
         "margin-bottom": [/^\d+(?:px|rem|em|%)$/],
+        "text-align": [/^(?:left|right|center|justify)$/],
       },
     },
   });
